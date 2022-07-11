@@ -1,3 +1,42 @@
 #root {
-  color: red;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: gray;
+}
+
+.titleepisodeClass{
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  padding: 2%;
+  color: black;
+  text-align: center;
+  border-style: solid;
+  border: 1.5px solid;
+  border-radius: 10px;
+}
+
+.episodeclass a:link { color: #10291b; text-decoration: none; }
+.episodeclass a:visited { color: #10291b; text-decoration: none; }
+
+.imageEpisodeClass{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.summaryEpisodeClass{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.episodeclass {
+  background-color: white;
+  /*width:20%;*/
+  margin: 20px;
+  display: block;
+  justify-content: space-between;
+  flex: 1 300px;
+  height: auto;
+  max-width: 20%;
 }
