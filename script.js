@@ -11,6 +11,20 @@ function setup() {
     if (textToFind == "") findStatElem.innerHTML = "";
     makePageForEpisodes(findEpisodes);
   })
+  //создание элемента select
+  let selectEpisode = document.getElementById("selectepisode");
+  for (let episode of allEpisodes) {
+    let optionElement = document.createElement("option");
+    optionElement.value = episode.id;//`${formatEpisodeNumber(episode.season, episode.number)} - ${episode.name}`;
+    optionElement.innerHTML= `${formatEpisodeNumber(episode.season, episode.number)} - ${episode.name}`;
+    selectEpisode.appendChild(optionElement);
+  }
+  selectEpisode.onchange = ()=>{
+    let showElement = document.getElementById(selectEpisode.value);
+    showElement.scrollIntoView();
+  };
+  
+
   //вывод эпизодов из списка allEpisodes
   makePageForEpisodes(allEpisodes);
 }
@@ -26,6 +40,7 @@ function makePageForEpisodes(episodeList) {
 function makeEpisode(episode) {
     let episodeElement = document.createElement('div');
     episodeElement.className = "episodeclass";
+    episodeElement.id = episode.id;
     //заголовок;
     let TitleEpisode = document.createElement('p');
     let TitleEpisodeRef = document.createElement('a');
