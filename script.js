@@ -1,19 +1,26 @@
 //You can edit ALL of the code here
 function setup() {
   const allEpisodes = getAllEpisodes();
+  //создание live search
+  let searchEpisodes = document.getElementById("searchEpisodesInput");
+  searchEpisodes.addEventListener("keyup", ()=>{
+    let textToFind = searchEpisodes.value.toLowerCase();
+    let findEpisodes = allEpisodes.filter(e => (e.name.toLowerCase().includes(textToFind) || e.summary.toLowerCase().includes(textToFind)));
+    let findStatElem = document.getElementById("findStat");
+    findStatElem.innerHTML = `Displaying ${findEpisodes.length} / ${allEpisodes.length} episodes`;
+    if (textToFind == "") findStatElem.innerHTML = "";
+    makePageForEpisodes(findEpisodes);
+  })
+  //вывод эпизодов из списка allEpisodes
   makePageForEpisodes(allEpisodes);
 }
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
+  rootElem.innerHTML = "";
   for (let episode of episodeList) {
     rootElem.appendChild(makeEpisode(episode));  
   }
-
-  //rootElem.appendChild(makeEpisode(episodeList[0]));
-  //rootElem.appendChild(makeEpisode(episodeList[1]));
-  //rootElem.appendChild(makeEpisode(episodeList[2]));
-  //makeEpisode(rootElem, episodeList[0]);
 }
 
 function makeEpisode(episode) {
