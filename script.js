@@ -1,6 +1,31 @@
 //You can edit ALL of the code here
+
 function setup() {
-  makePageForSerial(179);
+  let shows = sortListByName(getAllShows());
+  makeSelectForShow(shows);
+  makePageForSerial(82);
+}
+
+function sortListByName(list) {
+  let sortedList = list.map(e => e.name + e.id).sort();
+  let ans = [];
+  sortedList.forEach((e) => {ans.push(list.filter(a => (a.name + a.id == e))[0])
+  })
+  return ans;
+}
+
+function makeSelectForShow(list) {
+  //создание элемента select
+  let selectEpisode = document.getElementById("selectShow");
+  for (let show of list) {
+    let optionElement = document.createElement("option");
+    optionElement.value = show.id;
+    optionElement.innerHTML= show.name;
+    selectEpisode.appendChild(optionElement);
+  };
+  selectEpisode.onchange = ()=>{
+    makePageForSerial(selectEpisode.value);
+  };
 }
 
 function makePageForSerial(serialId) {
@@ -35,6 +60,7 @@ function makeLiveSearch(allEpisodes){
 function makeSelectMenu(allEpisodes){
   //создание элемента select
   let selectEpisode = document.getElementById("selectepisode");
+  while (selectEpisode.options.length) selectEpisode.remove(0);
   for (let episode of allEpisodes) {
     let optionElement = document.createElement("option");
     optionElement.value = episode.id;
@@ -56,7 +82,7 @@ function makePageForEpisodes(episodeList) {
   }
 }
 
-function makeEpisode(episode) {
+function makeEpisode(episode) {//создает прямоугольник с одной серией (название, картинка, описание)
     let episodeElement = document.createElement('div');
     episodeElement.className = "episodeclass";
     episodeElement.id = episode.id;
@@ -85,8 +111,8 @@ function makeEpisode(episode) {
 }
 
 function formatEpisodeNumber(season, episodeNumber) {
-  let seasonFormat = season<100 ? `0${season}` : `${season}`;
-  let episodeFormat = episodeNumber<100 ? `0${episodeNumber}` : `${episodeNumber}`;
+  let seasonFormat = season<10 ? `0${season}` : `${season}`;
+  let episodeFormat = episodeNumber<10 ? `0${episodeNumber}` : `${episodeNumber}`;
   return `S${seasonFormat}E${episodeFormat}`;
 }
 window.onload = setup;
