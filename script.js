@@ -1,6 +1,19 @@
 //You can edit ALL of the code here
 function setup() {
-  const allEpisodes = getAllEpisodes();
+  fetch("https://api.tvmaze.com/shows/82/episodes")
+    .then((response) => {return(response.json())})
+    .then((data) => {
+      let allEpisodes = data; 
+      //вывод эпизодов из списка allEpisodes
+      makePageForEpisodes(allEpisodes);
+      makeSelectMenu(allEpisodes);
+      makeLiveSearch(allEpisodes);
+    });
+  
+
+}
+
+function makeLiveSearch(allEpisodes){
   //создание live search
   let searchEpisodes = document.getElementById("searchEpisodesInput");
   searchEpisodes.addEventListener("keyup", ()=>{
@@ -11,6 +24,9 @@ function setup() {
     if (textToFind == "") findStatElem.innerHTML = "";
     makePageForEpisodes(findEpisodes);
   })
+}
+
+function makeSelectMenu(allEpisodes){
   //создание элемента select
   let selectEpisode = document.getElementById("selectepisode");
   for (let episode of allEpisodes) {
@@ -23,13 +39,10 @@ function setup() {
     let showElement = document.getElementById(selectEpisode.value);
     showElement.scrollIntoView();
   };
-  
-
-  //вывод эпизодов из списка allEpisodes
-  makePageForEpisodes(allEpisodes);
 }
 
 function makePageForEpisodes(episodeList) {
+  //размещение серий из списка
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = "";
   for (let episode of episodeList) {
@@ -50,7 +63,7 @@ function makeEpisode(episode) {
     TitleEpisode.appendChild(TitleEpisodeRef);
     episodeElement.appendChild(TitleEpisode);
     //картинка
-    let imageEpisode = new Image(280, 200);
+    let imageEpisode = new Image(360, 200);
     imageEpisode.src = episode.image.original;
     imageEpisode.className = "imageEpisodeClass";
     episodeElement.appendChild(imageEpisode);
