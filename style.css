@@ -1,7 +1,16 @@
 #root {
+  margin: 5px;
+}
+
+.episodesStyle{
   display: flex;
   flex-wrap: wrap;
   background-color: gray;
+  padding-top: 10px;
+}
+.showsStyle{
+  background-color: gray;
+  padding-top: 10px;
 }
 
 .titleepisodeClass{
@@ -18,6 +27,8 @@
 
 .episodeclass a:link { color: #10291b; text-decoration: none; }
 .episodeclass a:visited { color: #10291b; text-decoration: none; }
+.showclass a:link { color: #10291b; text-decoration: none; }
+.showclass a:visited { color: #10291b; text-decoration: none; }
 
 .imageEpisodeClass{
   display: block;
@@ -47,6 +58,9 @@
   background-color: white;
   margin-left: 20px;
 }
+.hiddenSearch{
+  visibility: hidden;
+}
 
 .searchEpisodesInput{
   margin-top: 10px;
@@ -61,3 +75,41 @@
   height: 36px;
   margin-top: 10px;
 }
+
+.showclass{
+  background-color: white;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+.titleshowClass{
+  margin-left: 20px;
+  padding: 2%;
+  color: black;
+  font-size: xx-large;
+  cursor: pointer;
+}
+.containerShow{
+  display: flex;
+  
+}
+.imageShowClass{
+  width: 15%;
+  display: block;
+  padding: 5px;
+}
+.summaryShow{
+  width: 50%;
+  margin-left: 10px;
+}
+
+.statisticShow{
+  margin-left: 15px;
+  border: 1.5px solid;
+  border-radius: 10px;
+  width: 15%;
+  padding: 10px;
+  margin: 30px;
+}
+

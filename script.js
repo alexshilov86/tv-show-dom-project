@@ -2,8 +2,9 @@
 
 function setup() {
   let shows = sortListByName(getAllShows());
-  makeSelectForShow(shows);
-  makePageForSerial(82);
+  makePageForShowsStart(shows);
+  //makeSelectForShow(shows);
+  //makePageForSerial(82);
 }
 
 function sortListByName(list) {
@@ -35,7 +36,7 @@ function makePageForSerial(serialId) {
     .then((data) => {
       let allEpisodes = data; 
       //вывод эпизодов из списка allEpisodes
-      makePageForEpisodes(allEpisodes); //вывод серий на страницу
+      makePageForShows(allEpisodes); //вывод серий на страницу
       makeSelectMenu(allEpisodes);      //создание меню для выбора
       makeLiveSearch(allEpisodes);      //создание поиска слов
     });
@@ -44,6 +45,8 @@ function makePageForSerial(serialId) {
 function makeLiveSearch(allEpisodes){
   //создание live search
   let searchEpisodes = document.getElementById("searchEpisodesInput");
+  let findStatElem = document.getElementById("findStat");
+  findStatElem.innerHTML = `Displaying ${allEpisodes.length} / ${allEpisodes.length} episodes`;
   searchEpisodes.addEventListener("keyup", ()=>{
     let textToFind = searchEpisodes.value.toLowerCase();
     let findEpisodes = allEpisodes.filter((e) => {
@@ -52,15 +55,18 @@ function makeLiveSearch(allEpisodes){
        });
     let findStatElem = document.getElementById("findStat");
     findStatElem.innerHTML = `Displaying ${findEpisodes.length} / ${allEpisodes.length} episodes`;
-    if (textToFind == "") findStatElem.innerHTML = "";
-    makePageForEpisodes(findEpisodes);
+    //if (textToFind == "") findStatElem.innerHTML = "";
+    makePageForShows(findEpisodes);
   })
 }
 
 function makeSelectMenu(allEpisodes){
   //создание элемента select
   let selectEpisode = document.getElementById("selectepisode");
-  while (selectEpisode.options.length) selectEpisode.remove(0);
+  if (!selectEpisode.options) {
+    while (selectEpisode.options.length) selectEpisode.remove(0);
+  }
+  
   for (let episode of allEpisodes) {
     let optionElement = document.createElement("option");
     optionElement.value = episode.id;
@@ -73,10 +79,13 @@ function makeSelectMenu(allEpisodes){
   };
 }
 
-function makePageForEpisodes(episodeList) {
+function makePageForShows(episodeList) {
   //размещение серий из списка
   const rootElem = document.getElementById("root");
+  rootElem.className = "episodesStyle";
   rootElem.innerHTML = "";
+  let searchBlock = document.getElementById("searchInputBlock");
+  searchBlock.className = "searchBlock";
   for (let episode of episodeList) {
     rootElem.appendChild(makeEpisode(episode));  
   }
