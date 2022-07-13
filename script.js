@@ -1,16 +1,19 @@
 //You can edit ALL of the code here
 function setup() {
-  fetch("https://api.tvmaze.com/shows/82/episodes")
+  makePageForSerial(179);
+}
+
+function makePageForSerial(serialId) {
+  let url = `https://api.tvmaze.com/shows/${serialId}/episodes`;
+  fetch(url)
     .then((response) => {return(response.json())})
     .then((data) => {
       let allEpisodes = data; 
       //вывод эпизодов из списка allEpisodes
-      makePageForEpisodes(allEpisodes);
-      makeSelectMenu(allEpisodes);
-      makeLiveSearch(allEpisodes);
+      makePageForEpisodes(allEpisodes); //вывод серий на страницу
+      makeSelectMenu(allEpisodes);      //создание меню для выбора
+      makeLiveSearch(allEpisodes);      //создание поиска слов
     });
-  
-
 }
 
 function makeLiveSearch(allEpisodes){
@@ -18,7 +21,10 @@ function makeLiveSearch(allEpisodes){
   let searchEpisodes = document.getElementById("searchEpisodesInput");
   searchEpisodes.addEventListener("keyup", ()=>{
     let textToFind = searchEpisodes.value.toLowerCase();
-    let findEpisodes = allEpisodes.filter(e => (e.name.toLowerCase().includes(textToFind) || e.summary.toLowerCase().includes(textToFind)));
+    let findEpisodes = allEpisodes.filter((e) => {
+       if (!e.summary) {return (e.name.toLowerCase().includes(textToFind))}
+       else {return (e.name.toLowerCase().includes(textToFind) || e.summary.toLowerCase().includes(textToFind))}
+       });
     let findStatElem = document.getElementById("findStat");
     findStatElem.innerHTML = `Displaying ${findEpisodes.length} / ${allEpisodes.length} episodes`;
     if (textToFind == "") findStatElem.innerHTML = "";
@@ -31,7 +37,7 @@ function makeSelectMenu(allEpisodes){
   let selectEpisode = document.getElementById("selectepisode");
   for (let episode of allEpisodes) {
     let optionElement = document.createElement("option");
-    optionElement.value = episode.id;//`${formatEpisodeNumber(episode.season, episode.number)} - ${episode.name}`;
+    optionElement.value = episode.id;
     optionElement.innerHTML= `${formatEpisodeNumber(episode.season, episode.number)} - ${episode.name}`;
     selectEpisode.appendChild(optionElement);
   }
@@ -64,7 +70,10 @@ function makeEpisode(episode) {
     episodeElement.appendChild(TitleEpisode);
     //картинка
     let imageEpisode = new Image(360, 200);
-    imageEpisode.src = episode.image.original;
+    if (episode.image != null) {
+      imageEpisode.src = episode.image.original;
+    }
+    
     imageEpisode.className = "imageEpisodeClass";
     episodeElement.appendChild(imageEpisode);
     //описание
@@ -76,8 +85,8 @@ function makeEpisode(episode) {
 }
 
 function formatEpisodeNumber(season, episodeNumber) {
-  let seasonFormat = season<10 ? `0${season}` : `${season}`;
-  let episodeFormat = episodeNumber<10 ? `0${episodeNumber}` : `${episodeNumber}`;
+  let seasonFormat = season<100 ? `0${season}` : `${season}`;
+  let episodeFormat = episodeNumber<100 ? `0${episodeNumber}` : `${episodeNumber}`;
   return `S${seasonFormat}E${episodeFormat}`;
 }
 window.onload = setup;
