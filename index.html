@@ -4,25 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TV Show Project | My Name alexshilov86</title>
-    <link href="style.css" rel="stylesheet" />
+    <link href="showsstyles.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="searchInputBlock" class="searchBlock">
-      <select id="selectShow" class="selectShow"></select>
-      <select id="selectepisode" class="selectEpisode"></select>
+    
+    <div id="searchshowInputBlock" class="searchshowBlock">
+      <span>Filtering for</span>
       <input type="text" id="searchEpisodesInput" placeholder="Search for names.." class="searchEpisodesInput">
-      <span id="findStat"></span>
+      <span>found * shows</span>
+      <select id="selectepisode" class="selectEpisode"></select>
+      
+      
     </div>
-    <div id="root">
+    
+    <div id="rootshows" class="allShowsStyle">
     </div>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    
     <script src="shows.js"></script>
     <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+    
     <script src="allshows.js"></script>
   </body>
 </html>

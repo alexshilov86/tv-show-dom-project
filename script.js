@@ -1,19 +1,11 @@
 //You can edit ALL of the code here
 
-function setup() {
-  let shows = sortListByName(getAllShows());
-  makePageForShowsStart(shows);
-  //makeSelectForShow(shows);
-  //makePageForSerial(82);
+function episodesSetup() {
+  let showid = document.URL.split("?")[1];
+  makePageForSerial(showid);
 }
 
-function sortListByName(list) {
-  let sortedList = list.map(e => e.name + e.id).sort();
-  let ans = [];
-  sortedList.forEach((e) => {ans.push(list.filter(a => (a.name + a.id == e))[0])
-  })
-  return ans;
-}
+
 
 function makeSelectForShow(list) {
   //создание элемента select
@@ -124,4 +116,5 @@ function formatEpisodeNumber(season, episodeNumber) {
   let episodeFormat = episodeNumber<10 ? `0${episodeNumber}` : `${episodeNumber}`;
   return `S${seasonFormat}E${episodeFormat}`;
 }
-window.onload = setup;
+
+window.onload = episodesSetup;

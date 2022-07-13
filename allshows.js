@@ -1,30 +1,40 @@
+function setup() {
+  let shows = getAllShows();
+  makePageForShowsStart(shows);
+}
 
 
 function makePageForShowsStart(showList) {
     //размещение серий из списка
-    const rootElem = document.getElementById("root");
-    rootElem.className = "showsStyle";
+    const rootElem = document.getElementById("rootshows");
     rootElem.innerHTML = "";
     for (let show of showList) {
       rootElem.appendChild(makeShow(show));  
     }
-    let searchEpisodes = document.getElementById("searchInputBlock");
-    //searchEpisodes.innerHTML = "";
-    searchEpisodes.className = "hiddenSearch";
-    
   }
 
+function sortListByName(list) {
+    let sortedList = list.map(e => e.name + e.id).sort();
+    let ans = [];
+    sortedList.forEach((e) => {ans.push(list.filter(a => (a.name + a.id == e))[0])
+    })
+    return ans;
+  }
+  
 function makeShow(show) {//создает прямоугольник с одной серией (название, картинка, описание)
     let showElement = document.createElement('div');
     showElement.className = "showclass";
     showElement.id = show.id;
     //заголовок;
     let TitleShow = document.createElement('p');
-    TitleShow.innerHTML = `${show.name}`;
+    let titleShowRef = document.createElement("a");
+    titleShowRef.href = `pageEpisodes.html?${show.id}`;
+    titleShowRef.innerHTML = `${show.name}`;
+    TitleShow.appendChild(titleShowRef);
     TitleShow.className = "titleshowClass";
+
     TitleShow.addEventListener('click', ()=>{
-        let showid = show.id;
-        makePageForSerial(showid);
+        //makePageForSerial(showid);
     })
     showElement.appendChild(TitleShow);
     //картинка
@@ -65,4 +75,5 @@ function makeShow(show) {//создает прямоугольник с одно
     showElement.appendChild(containerShow);
 
     return showElement;
-}
+} 
+window.onload = setup;
