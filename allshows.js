@@ -1,6 +1,6 @@
 function setup() {
   let shows = getAllShows();
-  makePageForShowsStart(shows);
+  makePageForShowsStart(shows); //заполнение rootshows
 }
 
 
@@ -20,7 +20,7 @@ function sortListByName(list) {
     })
     return ans;
   }
-  
+
 function makeShow(show) {//создает прямоугольник с одной серией (название, картинка, описание)
     let showElement = document.createElement('div');
     showElement.className = "showclass";
