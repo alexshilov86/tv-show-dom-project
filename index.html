@@ -9,16 +9,16 @@
   </head>
 
   <body>
-    
-    <div id="searchshowInputBlock" class="searchshowBlock">
-      <span>Filtering for</span>
-      <input type="text" id="searchShowsInput" placeholder="Search for names.." class="searchShowsInput">
-      <span>found * shows</span>
-      <select id="selectshow" class="selectshow"></select>
+    <div id="allpage" class="allpage">
+      <div id="searchshowInputBlock" class="searchshowBlock">
+        <span>Filtering for</span>
+        <input type="text" id="searchShowsInput" placeholder="Search for names.." class="searchShowsInput">
+        <span id="foundinfo">found * shows</span>
+        <select id="selectshow" class="selectshow"></select>
+      </div>
+      
+      <div id="rootshows" class="allShowsStyle"></div>
     </div>
-    
-    <div id="rootshows" class="allShowsStyle"></div>
-
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     
     <script src="shows.js"></script>

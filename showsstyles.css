@@ -1,6 +1,10 @@
+.allpage{
+  background-color: gray;
+  padding-top: 20px;
+}
 .allShowsStyle{
     margin: 5px;
-    background-color: gray;
+    
     padding-top: 10px;
 }
 
@@ -10,8 +14,19 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 0px;
   }
+  .searchshowBlock{
+    height: 60px;
+    background-color: antiquewhite;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-left: 20px;
+    width: 95%;
+    font-size: large;
+  }  
 
 .showclass a:link { color: #10291b; text-decoration: none; }
 .showclass a:visited { color: #10291b; text-decoration: none; }
@@ -47,8 +62,6 @@
     margin: 30px;
   }
 
-  .searchshowBlock{
-    height: 50px;
-    padding-top: 20px;
-    padding-left: 30px;
-  }
+.bold{
+  font-weight: bold;
+}

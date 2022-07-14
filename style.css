@@ -1,12 +1,22 @@
 #root {
-  margin: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;  
 }
-
+.episodesroot{
+  background-color: gray;
+  padding-top: 20px;
+}
 .episodesStyle{
   display: flex;
   flex-wrap: wrap;
-  background-color: gray;
   padding-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }
 
 
@@ -51,8 +61,13 @@
 
 .searchBlock{
   height: 60px;
-  background-color: white;
-  margin-left: 20px;
+  background-color: antiquewhite;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 8px;
+  padding-left: 20px;
+  width: 95%;
+  font-size: large;
 }
 
 .searchEpisodesInput{

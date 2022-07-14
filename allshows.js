@@ -1,6 +1,8 @@
 function setup() {
   let shows = getAllShows();
   makePageForShowsStart(shows); //заполнение rootshows
+  makeLiveSearchforShows(shows);
+  makeSelectMenuForShows(sortListByName(shows));
 }
 
 
@@ -13,6 +15,44 @@ function makePageForShowsStart(showList) {
     }
   }
 
+
+function makeLiveSearchforShows(allShows){
+    //создание live search
+    let searchShows = document.getElementById("searchShowsInput");
+    let findStatElem = document.getElementById("foundinfo");
+    findStatElem.innerHTML = `Found ${allShows.length} shows`;
+    searchShows.addEventListener("keyup", ()=>{
+      let textToFind = searchShows.value.toLowerCase();
+      let findEpisodes = allShows.filter((e) => {
+         if (!e.summary) {return (e.name.toLowerCase().includes(textToFind))}
+         else {return (e.name.toLowerCase().includes(textToFind) || e.summary.toLowerCase().includes(textToFind))}
+         });
+      findStatElem.innerHTML = `Found ${findEpisodes.length} shows`;
+      //if (textToFind == "") findStatElem.innerHTML = "";
+      makePageForShowsStart(findEpisodes);
+      makeSelectMenuForShows(sortListByName(findEpisodes));
+    })
+  }  
+
+  function makeSelectMenuForShows(allShows){
+    //создание элемента select
+    let selectShow = document.getElementById("selectshow");
+    if (!selectShow.options) {
+      while (selectShow.options.length) selectShow.remove(0);
+    }
+    while (selectShow.options.length) selectShow.remove(0);
+
+    for (let show of allShows) {
+      let optionElement = document.createElement("option");
+      optionElement.value = show.id;
+      optionElement.innerHTML= `${show.name}`;
+      selectShow.appendChild(optionElement);
+    }
+    selectShow.onchange = ()=>{
+      let showElement = document.getElementById(selectShow.value);
+      showElement.scrollIntoView();
+    };
+  }  
 function sortListByName(list) {
     let sortedList = list.map(e => e.name + e.id).sort();
     let ans = [];
@@ -58,13 +98,13 @@ function makeShow(show) {//создает прямоугольник с одно
     let statisticShow = document.createElement('div');
     statisticShow.className = "statisticShow";
     let ratedShow = document.createElement("p");
-    ratedShow.innerHTML = `rated: ${show.rating.average}`;
+    ratedShow.innerHTML = `<span class="bold">rated</span>: ${show.rating.average}`;
     let ganreShow = document.createElement("p");
-    ganreShow.innerHTML = `Genres: ${show.genres.join(" | ")}`;
+    ganreShow.innerHTML = `<span class="bold">Genres</span>: ${show.genres.join(" | ")}`;
     let statusShow = document.createElement("p");
-    statusShow.innerHTML = `Status: ${show.status}`;
+    statusShow.innerHTML = `<span class="bold">Status</span>: ${show.status}`;
     let runtimeShow = document.createElement("p");
-    runtimeShow.innerHTML = `Runtime: ${show.runtime}`;
+    runtimeShow.innerHTML = `<span class="bold">Runtime</span>: ${show.runtime}`;
 
     statisticShow.appendChild(ratedShow);
     statisticShow.appendChild(ganreShow);
